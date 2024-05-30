@@ -3,27 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Quest</title>
+    <title>AI Chatbot</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>HTML Quest</h1>
-        <button id="startButton">Start Game</button>
-    </header>
-    <main>
-        <div id="gameCanvas">
-            <!-- Game content will be dynamically generated here -->
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <div class="chat-message bot">Welcome! Ask me anything or type 'quit' to exit.</div>
         </div>
-        <div id="codeEditor">
-            <!-- Code editor for players to write HTML -->
-            <textarea id="htmlCode" placeholder="Write your HTML code here..."></textarea>
-            <button id="runButton">Run Code</button>
-        </div>
-        <div id="tutorialHints">
-            <!-- Tutorial hints and feedback will be displayed here -->
-        </div>
-    </main>
+        <input type="text" id="userInput" placeholder="Type your message...">
+        <button id="sendButton">Send</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
