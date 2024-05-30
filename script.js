@@ -31,20 +31,14 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Check for requests to generate code
-        if (message.toLowerCase().includes('generate code')) {
-            generateCode();
+        // Check for specific questions and provide informative answers
+        if (message.toLowerCase().includes('how are you')) {
+            addMessage('bot', 'I am just a bot, but I am doing well. How can I assist you today?');
             return;
         }
 
-        // Add more logic to handle different types of questions and requests
+        // Add more logic to handle different types of questions and provide appropriate responses
         // For now, let's just echo the user's message
-        addMessage('bot', message);
-    }
-
-    function generateCode() {
-        // Simple code generation for demonstration
-        const code = '<html>\n<head>\n    <title>My Webpage</title>\n</head>\n<body>\n    <h1>Hello, world!</h1>\n</body>\n</html>';
-        addMessage('bot', 'Here is a simple HTML code:\n' + code);
+        addMessage('bot', 'Sorry, I am unable to answer that question. Please try asking something else.');
     }
 });
