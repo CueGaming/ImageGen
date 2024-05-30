@@ -1,28 +1,39 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    const startButton = document.getElementById('startButton');
-    const htmlCode = document.getElementById('htmlCode');
-    const runButton = document.getElementById('runButton');
-    const tutorialHints = document.getElementById('tutorialHints');
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
+    const sendButton = document.getElementById('sendButton');
 
-    startButton.addEventListener('click', startGame);
-    runButton.addEventListener('click', runCode);
+    sendButton.addEventListener('click', sendMessage);
 
-    function startGame() {
-        // Display initial challenge
-        tutorialHints.innerHTML = 'Welcome to HTML Quest! Write HTML code to solve challenges.';
-        htmlCode.value = '<!-- Write your HTML code here -->';
+    function sendMessage() {
+        const userMessage = userInput.value.trim();
+        if (userMessage === '') return;
+
+        addMessage('user', userMessage);
+        processMessage(userMessage);
+        userInput.value = '';
     }
 
-    function runCode() {
-        const playerCode = htmlCode.value;
+    function addMessage(sender, message) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', sender);
+        messageElement.innerText = message;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+    }
 
-        // Simulate basic validation for demonstration
-        if (playerCode.includes('<html>') && playerCode.includes('<body>')) {
-            tutorialHints.innerHTML = 'Challenge complete! Well done.';
-        } else {
-            tutorialHints.innerHTML = 'Your HTML code is incomplete. Try again.';
+    function processMessage(message) {
+        // Simple response for demonstration
+        if (message.toLowerCase() === 'quit') {
+            addMessage('bot', 'Goodbye!');
+            return;
         }
+
+        // Add more logic to handle different types of questions
+        // and generate appropriate responses
+        // For now, let's just echo the user's message
+        addMessage('bot', message);
     }
 });
