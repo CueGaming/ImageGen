@@ -43,55 +43,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function generateCode(message) {
-        // Extract code type from user message (e.g., HTML, CSS, JavaScript)
-        const codeType = getCodeType(message);
-        
-        // Generate code snippet based on code type
-        let codeSnippet = '';
+        let codeType = '';
+        if (message.toLowerCase().includes('html')) {
+            codeType = 'html';
+        } else if (message.toLowerCase().includes('css')) {
+            codeType = 'css';
+        } else if (message.toLowerCase().includes('javascript') || message.toLowerCase().includes('js')) {
+            codeType = 'javascript';
+        } else {
+            addMessage('bot', 'Please specify HTML, CSS, or JavaScript.');
+            return;
+        }
+
+        const codeSnippet = generateCodeSnippet(codeType);
+        if (codeSnippet) {
+            addMessage('bot', 'Here is a simple ' + codeType.toUpperCase() + ' code snippet:\n' + codeSnippet);
+        } else {
+            addMessage('bot', 'Sorry, I encountered an error while generating the code snippet.');
+        }
+    }
+
+    function generateCodeSnippet(codeType) {
         switch (codeType) {
             case 'html':
-                codeSnippet = generateHTMLCode();
-                break;
+                return '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Document</title>\n</head>\n<body>\n    <h1>Hello, world!</h1>\n</body>\n</html>';
             case 'css':
-                codeSnippet = generateCSSCode();
-                break;
+                return 'body {\n    background-color: #f0f0f0;\n    font-family: Arial, sans-serif;\n}';
             case 'javascript':
-                codeSnippet = generateJavaScriptCode();
-                break;
+                return 'document.addEventListener("DOMContentLoaded", function() {\n    console.log("Page loaded.");\n});';
             default:
-                addMessage('bot', 'Sorry, I am unable to generate code for that language. Please specify HTML, CSS, or JavaScript.');
-                return;
+                return null;
         }
-
-        addMessage('bot', 'Here is a simple ' + codeType.toUpperCase() + ' code snippet:\n' + codeSnippet);
-    }
-
-    function getCodeType(message) {
-        // Regular expressions to identify code types
-        const htmlRegex = /\b(html|html5?)\b/i;
-        const cssRegex = /\b(css|stylesheet)\b/i;
-        const javascriptRegex = /\b(javascript|js)\b/i;
-
-        if (htmlRegex.test(message)) {
-            return 'html';
-        } else if (cssRegex.test(message)) {
-            return 'css';
-        } else if (javascriptRegex.test(message)) {
-            return 'javascript';
-        } else {
-            return '';
-        }
-    }
-
-    function generateHTMLCode() {
-        return '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Document</title>\n</head>\n<body>\n    <h1>Hello, world!</h1>\n</body>\n</html>';
-    }
-
-    function generateCSSCode() {
-        return 'body {\n    background-color: #f0f0f0;\n    font-family: Arial, sans-serif;\n}';
-    }
-
-    function generateJavaScriptCode() {
-        return 'document.addEventListener("DOMContentLoaded", function() {\n    console.log("Page loaded.");\n});';
     }
 });
